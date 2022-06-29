@@ -29,6 +29,30 @@ const scroll = (direction: ScrollDirection, distance: ScrollDistance) => {
 
    let distanceValue = distance === 'halfPage' ? Math.floor(allSegmentsRangeValue / 2) : distance === 'page' ? allSegmentsRangeValue : distance;
 
+   // Logs
+   (() => { // iife to add folding ability
+      console.log('{ == #log start ==>');
+      console.log('#numberOfSegments', visibleRanges.length);
+      console.log('------------------------------------------');
+      console.log('#first: rangeStart:', firstSegmentRangeStart, '| rangeEnd', firstSegmentRangeEnd);
+      console.log('#first: distStart:', firstSegmentDistanceStart, '| distEnd', firstSegmentDistanceEnd);
+      console.log('------------------------------------------');
+      console.log('#last rangeStart:', lastSegmentRangeStart, '| rangeEnd', lastSegmentRangeEnd);
+      console.log('#last: distStart:', lastSegmentDistanceStart, '| distEnd', lastSegmentDistanceEnd);
+      console.log('------------------------------------------');
+      console.log('#all rangeStart:', allSegmentsRanges.start, '| rangeEnd:', allSegmentsRanges.end);
+      console.log('#all rangeVal:', allSegmentsRangeValue);
+      console.log('------------------------------------------');
+      console.log('cursorPos:', cursorPosition);
+      /*       for (let i = 0; i < visibleRanges.length; i++) {
+               console.log(`#SEGMENT${i} rangeStart:`, visibleRanges[i].start.line, '| rangeEnd', visibleRanges[i].end.line);
+               console.log(`#SEGMENT${i} distStart:`, cursorPosition - visibleRanges[i].start.line, '| distEnd', visibleRanges[i].start.line - cursorPosition);
+               console.log('------------------------------------------');
+            } */
+      console.log('<== #log end }');
+   })();
+   if (distance === 0) return; // do not scroll when using printPos command
+
    // Fix cursor moves to end of line when scrolling beyond last line
    if (hasNumberDistance && direction === 'down' && allSegmentsRangeValue <= scrollOff + distance) {
       console.log('#fix');
@@ -104,6 +128,7 @@ export function activate(context: vscode.ExtensionContext) {
          vscode.commands.registerCommand(`germanScroll.${scroller}Up`, () => scroll("up", config)),
       );
    });
+   vscode.commands.registerCommand(`germanScroll.printPos`, () => scroll('down', 0));
 }
 
 export function deactivate() { }

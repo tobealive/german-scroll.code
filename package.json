@@ -29,7 +29,8 @@
 		"onCommand:germanScroll.bertholdUp",
 		"onCommand:germanScroll.bertholdDown",
 		"onCommand:germanScroll.christaUp",
-		"onCommand:germanScroll.christaDown"
+		"onCommand:germanScroll.christaDown",
+		"onCommand:germanScroll.printPos"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -60,6 +61,12 @@
 			}
 		},
 		"keybindings": [
+			{
+				"command": "germanScroll.printPos",
+				"key": "ctrl+shift+/",
+				"mac": "cmd+shift+/",
+				"when": "editorTextFocus"
+			},
 			{
 				"command": "germanScroll.arminDown",
 				"key": "ctrl+down",
